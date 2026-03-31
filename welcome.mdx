@@ -3,60 +3,37 @@ title: "Welcome to Synqed Enterprise MCP Gateway"
 description: "The all-in-one infrastructure layer that lets AI agents reliably interact with every SaaS tool in the enterprise — with zero integration friction."
 ---
 
-## Setting up
+## The Problem
 
-Get your documentation site up and running in minutes.
+AI agents are automating enterprise workflows at an unprecedented pace. But these agents need access to external tools, APIs, and functions to fetch data and take real-world actions — creating Jira tickets, sending Slack messages, updating HubSpot records, and more.
 
-<Card title="Start here" icon="rocket" horizontal href="/quickstart">
-  Follow our three step quickstart guide.
-</Card>
+Building these integrations from scratch is a nightmare. A developer has to:
 
-## Make it yours
+- Trawl through pages of API documentation for every SaaS app
+- Understand each API endpoint's input/output parameters and data formats
+- Figure out the OAuth scopes required by each endpoint
+- Implement authentication flows — OAuth2, API keys, JWT — and handle token storage, refresh, and rotation
+- Maintain all of this as APIs evolve and break
 
-Design a docs site that looks great and empowers your users.
+Multiply that across dozens of tools an agent might need, and you've got weeks of integration work before your agent can do anything useful.
 
-<Columns cols={2}>
-  <Card title="Edit locally" icon="pen-to-square" href="/development">
-    Edit your docs locally and preview them in real time.
-  </Card>
+### MCP helps — but introduces new problems
 
-  <Card title="Customize your site" icon="palette" href="/essentials/settings">
-    Customize the design and colors of your site to match your brand.
-  </Card>
+The Model Context Protocol (MCP) was designed to solve this. It standardizes how AI agents discover and interact with external tools — giving you pre-built servers for SaaS apps instead of writing raw API integrations.
 
-  <Card title="Set up navigation" icon="map" href="/essentials/navigation">
-    Organize your docs to help users find what they need and succeed with your product.
-  </Card>
+But MCP comes with its own set of challenges:
 
-  <Card title="API documentation" icon="terminal" href="/api-reference/introduction">
-    Auto-generate API documentation from OpenAPI specifications.
-  </Card>
-</Columns>
+- **Context bloat** — Loading multiple MCP servers dumps hundreds of tool definitions into the LLM's context window. This chokes model performance, leading to wrong tool selection, incorrect parameters, and degraded output. A single workflow can balloon to tens of thousands of tokens just from tool schemas alone.
+- **Tool routing confusion** — When overlapping tool names and vague descriptions flood the prompt, the LLM misfires — calling the wrong tool, ignoring the right one, or hallucinating parameters. The more tools you load, the worse it gets.
+- **Authentication complexity** — Every MCP server manages its own auth. You're left juggling multiple OAuth flows, token stores, and refresh logic across dozens of servers — with no unified control.
+- **Multi-tool orchestration** — Real-world workflows need tools executed in parallel or chained in sequence (output of one feeding into the next). Coordinating this across separate MCP servers at the agent level is brittle and slow.
 
-## Create beautiful pages
+### Synqed solves this
 
-Everything you need to create world-class documentation.
+The Synqed Enterprise MCP Gateway is an intelligent middleware layer that sits between your AI agents and all your external SaaS services. Instead of your agents juggling multiple MCP server URLs, auth tokens, and routing logic — they connect to **one single Synqed gateway URL**, and the gateway handles everything.
 
-<Columns cols={2}>
-  <Card title="Write with MDX" icon="pen-fancy" href="/essentials/markdown">
-    Use MDX to style your docs pages.
-  </Card>
+**How it works:** Your LLM makes a tool call → Synqed handles authentication → verifies permissions → intelligently routes to the correct MCP server → executes the action → returns the result.
 
-  <Card title="Code samples" icon="code" href="/essentials/code">
-    Add sample code to demonstrate how to use your product.
-  </Card>
+No API documentation to read. No auth logic to write. No context window to manage.
 
-  <Card title="Images" icon="image" href="/essentials/images">
-    Display images and other media.
-  </Card>
-
-  <Card title="Reusable snippets" icon="recycle" href="/essentials/reusable-snippets">
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
-
-## Need inspiration?
-
-<Card title="See complete examples" icon="stars" href="https://mintlify.com/customers">
-  Browse our showcase of exceptional documentation sites.
-</Card>
+**One gateway. Every tool. Zero friction.**

@@ -12,9 +12,9 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "icon": "book-open-cover",
-          "href": "https://mintlify.com/docs"
+          "anchor": "Platform",
+          "icon": "globe-pointer",
+          "href": "https://stg.contexaai.app/app"
         },
         {
           "anchor": "Blog",
