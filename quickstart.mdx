@@ -37,39 +37,41 @@ From the **MCP Gateways** dashboard, click **\+ Create MCP Gateway** and select 
 
 The creation wizard walks you through three stages:
 
-#### Stage 1: Gateway Info & Setup
+<AccordionGroup>
+  <Accordion title="Stage 1: Gateway Info & Setup">
+    **Name and describe your gateway.** Give it a clear name and description so your team can identify it later.
 
-**Name and describe your gateway.** Give it a clear name and description so your team can identify it later.
+    **Add MCP servers.** Click **\+ Add MCP Server** to open the server selection panel. Browse available servers — Dynamics 365, HubSpot, PostgreSQL, and more. Each server displays its supported authentication methods (OAuth2, API Key, etc.).
 
-**Add MCP servers.** Click **\+ Add MCP Server** to open the server selection panel. Browse available servers — Dynamics 365, HubSpot, PostgreSQL, and more. Each server displays its supported authentication methods (OAuth2, API Key, etc.).
+    **Select an Auth Config.** After choosing a server, you'll be prompted to select an Auth Config — a reusable authentication blueprint for that server. If one already exists (e.g., "new hubspot config"), select it. Otherwise, click **\+ Create Auth Config** to create a new one:
 
-**Select an Auth Config.** After choosing a server, you'll be prompted to select an Auth Config — a reusable authentication blueprint for that server. If one already exists (e.g., "new hubspot config"), select it. Otherwise, click **\+ Create Auth Config** to create a new one:
+    - Give it a name
+    - Choose the authentication method (API Key, OAuth, etc.)
+    - For OAuth, configure the required scopes
 
-- Give it a name
-- Choose the authentication method (API Key, OAuth, etc.)
-- For OAuth, configure the required scopes
+    <Note>
+      Auth Configs are reusable across multiple gateways within your organization, so you only need to set them up once per server.
+    </Note>
 
-<Note>
-  Auth Configs are reusable across multiple gateways within your organization, so you only need to set them up once per server.
-</Note>
+    **Select tools.** Once authenticated, the server's full tool list appears. Use the checkboxes to select exactly the tools your agent needs. For example, HubSpot exposes tools like _HUBSPOT\_ADD\_ASSET\_ASSOCIATION_, _HUBSPOT\_ARCHIVE_, _HUBSPOT\_ADD\_TOKEN\_TO\_EVENT\_TEMPLATE_, and many more.
 
-**Select tools.** Once authenticated, the server's full tool list appears. Use the checkboxes to select exactly the tools your agent needs. For example, HubSpot exposes tools like _HUBSPOT\_ADD\_ASSET\_ASSOCIATION_, _HUBSPOT\_ARCHIVE_, _HUBSPOT\_ADD\_TOKEN\_TO\_EVENT\_TEMPLATE_, and many more.
+    Repeat this process to add more servers — click **\+ Add MCP Server** again. All added servers appear in the left panel for easy navigation.
+  </Accordion>
 
-Repeat this process to add more servers — click **\+ Add MCP Server** again. All added servers appear in the left panel for easy navigation.
+  <Accordion title="Stage 2: Technical Configuration (optional)">
+    Configure security and performance settings for your gateway:
 
-#### Stage 2: Technical Configuration (optional)
+    - **Setup Authentication** — How clients authenticate when connecting to the gateway
+    - **Rate Limiting** — Maximum requests per second
+    - **IP Whitelisting** — Restrict access to trusted networks
+  </Accordion>
 
-Configure security and performance settings for your gateway:
+  <Accordion title="Stage 3: Prompts (optional)">
+    Prompts are MCP primitives that guide how the gateway orchestrates tool calls and workflows. Each prompt has a **name**, **description**, and **instruction**. Use the @ symbol within instructions to reference specific tools. Prompts act as reusable workflow templates — instructing the gateway on how to analyze requests, fetch data, and automate multi-step actions.
 
-- **Setup Authentication** — How clients authenticate when connecting to the gateway
-- **Rate Limiting** — Maximum requests per second
-- **IP Whitelisting** — Restrict access to trusted networks
-
-#### Stage 3: Prompts (optional)
-
-Prompts are MCP primitives that guide how the gateway orchestrates tool calls and workflows. Each prompt has a **name**, **description**, and **instruction**. Use the @ symbol within instructions to reference specific tools. Prompts act as reusable workflow templates — instructing the gateway on how to analyze requests, fetch data, and automate multi-step actions.
-
-Click **\+ Create MCP Gateway** to save your gateway config.
+    Click **\+ Create MCP Gateway** to save your gateway config.
+  </Accordion>
+</AccordionGroup>
 
 ## Step 5: Create a Gateway Instance
 
