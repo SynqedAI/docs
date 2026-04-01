@@ -5,92 +5,28 @@ sidebarTitle: "How Synqed MCP Gateway Works"
 icon: "route"
 ---
 
-<Info>
-  **Prerequisites**:
-  - Node.js version 19 or higher
-  - A docs repository with a `docs.json` file
-</Info>
+The Synqed MCP Gateway sits between your AI agents and external SaaS services. This page explains the key concepts you need to understand and how a request flows through the system.
 
-Follow these steps to install and run Mintlify on your operating system.
+### Core Concepts
 
-<Steps>
-<Step title="Install the Mintlify CLI">
+Before diving into the architecture, here are the building blocks of Synqed:
 
-```bash
-npm i -g mint
-```
-</Step>
+#### Gateway Config
 
-<Step title="Preview locally">
+A Gateway Config is a **blueprint** that defines what your MCP gateway looks like — which servers are included, which tools are exposed, technical settings (rate limits, IP whitelisting), and prompts for orchestrating workflows. Think of it as a template. You can create and update configs without affecting live agents.
 
-Navigate to your docs directory where your `docs.json` file is located, and run the following command:
+#### Gateway Instance
 
-```bash
-mint dev
-```
+A Gateway Instance is a **live, running gateway** created from a Gateway Config. Each instance has its own unique **Gateway URL** and **API key**. This is what your AI agent actually connects to. A single Gateway Config can produce multiple instances — for different environments (dev, staging, production), different clients, or different agent deployments.
 
-A local preview of your documentation will be available at `http://localhost:3000`.
+#### Auth Config
 
-</Step>
-</Steps>
+An Auth Config is a **blueprint for authentication** with a specific MCP server. It defines the authentication method (OAuth, API Key, etc.), OAuth scopes, and client credentials. For example, a Gmail Auth Config specifies which Gmail scopes your agents need — reading emails, sending messages, managing labels. Auth Configs are reusable across multiple gateways within your organization.
 
-## Custom ports
+#### Connection
 
-By default, Mintlify uses port 3000. You can customize the port Mintlify runs on by using the `--port` flag. For example, to run Mintlify on port 3333, use this command:
+A Connection is an **actual authenticated account** created from an Auth Config. One Auth Config can have multiple connections. For example, a single Gmail Auth Config can have connections for [personal@gmail.com](mailto:personal@gmail.com), [work@gmail.com](mailto:work@gmail.com), and [team@company.com](mailto:team@company.com) — each authenticated and ready for your agents to use.
 
-```bash
-mint dev --port 3333
-```
+#### Prompts
 
-If you attempt to run Mintlify on a port that's already in use, it will use the next available port:
-
-```md
-Port 3000 is already in use. Trying 3001 instead.
-```
-
-## Mintlify versions
-
-Please note that each CLI release is associated with a specific version of Mintlify. If your local preview does not align with the production version, please update the CLI:
-
-```bash
-npm mint update
-```
-
-## Validating links
-
-The CLI can assist with validating links in your documentation. To identify any broken links, use the following command:
-
-```bash
-mint broken-links
-```
-
-## Deployment
-
-If the deployment is successful, you should see the following:
-
-<Frame>
-  <img src="/images/checks-passed.png" alt="Screenshot of a deployment confirmation message that says All checks have passed." style={{ borderRadius: '0.5rem' }} />
-</Frame>
-
-## Code formatting
-
-We suggest using extensions on your IDE to recognize and format MDX. If you're a VSCode user, consider the [MDX VSCode extension](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx) for syntax highlighting, and [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) for code formatting.
-
-## Troubleshooting
-
-<AccordionGroup>
-  <Accordion title='Error: Could not load the "sharp" module using the darwin-arm64 runtime'>
-
-    This may be due to an outdated version of node. Try the following:
-    1. Remove the currently-installed version of the CLI: `npm remove -g mint`
-    2. Upgrade to Node v19 or higher.
-    3. Reinstall the CLI: `npm i -g mint`
-  </Accordion>
-
-  <Accordion title="Issue: Encountering an unknown error">
-  
-    Solution: Go to the root of your device and delete the `~/.mintlify` folder. Then run `mint dev` again.
-  </Accordion>
-</AccordionGroup>
-
-Curious about what changed in the latest CLI version? Check out the [CLI changelog](https://www.npmjs.com/package/mintlify?activeTab=versions).
+Prompts are **MCP primitives** attached to a Gateway Config that guide how the gateway orchestrates tool calls. They act as reusable workflow templates — instructing the gateway on how to analyze requests, sequence tool calls, and automate multi-step actions.
