@@ -55,3 +55,84 @@ sequenceDiagram
     MCP-->>GW: Structured result
     GW-->>Agent: Clean response returned to agent
 ```
+
+**Step by step:**
+
+1. **Agent sends a tool call** — Your AI agent makes a function call to the Gateway URL, just like calling any MCP server.
+2. **Gateway authenticates the request** — The gateway validates the API key and checks that the caller has permission to use this gateway.
+3. **Credentials are injected** — Synqed retrieves the stored OAuth tokens or API keys for the relevant connection. The agent never sees or handles credentials directly.
+4. **Request is routed** — The routing engine identifies which MCP server and tool should handle this call based on the tool name.
+5. **MCP server executes** — The call is forwarded to the correct MCP server with proper credentials, parameters, and context.
+6. **SaaS API is called** — The MCP server translates the call into the actual SaaS API request (REST, GraphQL, etc.).
+7. **Result flows back** — The response travels back through the chain — API → MCP server → Gateway → Agent — as a clean, structured result.
+
+The entire flow happens in milliseconds. Your agent treats the gateway as a single MCP server, completely unaware of the complexity behind it.
+
+### Config & Instance Model
+
+```mermaid placement="bottom-right"
+flowchart LR
+    subgraph Blueprints
+        AC[Auth Config<br/>OAuth scopes, method, client ID]
+        GC[Gateway Config<br/>Servers, tools, prompts, settings]
+    end
+
+    subgraph Live Resources
+        C1[Connection 1<br/>personal@gmail.com]
+        C2[Connection 2<br/>work@gmail.com]
+        GI1[Instance 1<br/>Gateway URL + API Key<br/>Production]
+        GI2[Instance 2<br/>Gateway URL + API Key<br/>Staging]
+    end
+
+    AC --> C1
+    AC --> C2
+    GC --> GI1
+    GC --> GI2
+```
+
+This separation gives you flexibility: update a config without disrupting live instances, spin up new instances for testing, and reuse auth configs across multiple gateways.
+
+### Two Types of Gateways
+
+Synqed offers two gateway types, each suited to different use cases:
+
+#### Dedicated Gateway
+
+You manually select exactly which MCP servers and tools to include. The gateway exposes only what you choose — nothing more.
+
+```mermaid placement="bottom-right"
+flowchart LR
+    A[AI Agent] --> GW[Dedicated Gateway]
+    GW --> T1[Gmail: Send Email]
+    GW --> T2[Gmail: List Drafts]
+    GW --> T3[Slack: Post Message]
+    GW --> T4[HubSpot: Create Contact]
+    
+    style GW fill:#FF4F00,color:#fff
+```
+
+**Best for:** Production workflows where you know exactly which tools are needed. Deterministic behavior, minimal context overhead.
+
+#### ToolRouter (Coming Soon)
+
+Instead of manually selecting tools, the ToolRouter uses intelligent routing to dynamically search and find the right tools based on the agent's query. No manual tool selection needed.
+
+```mermaid placement="bottom-right"
+flowchart LR
+    A[AI Agent] --> TR[ToolRouter Gateway]
+    TR --> S[search]
+    TR --> G[get_tool_schema]
+    TR --> M[manage_auth]
+    TR --> E[tool_execution]
+    TR --> R[remote_workbench]
+
+    style TR fill:#007FFF,color:#fff
+```
+
+- **search** — Discover tools by intent across all connected servers
+- **get\_tool\_schema** — Fetch the full input/output schema of a specific tool on demand
+- **manage\_auth** — Authenticate tools and manage OAuth flows at runtime
+- **tool\_execution** — Execute a tool with the correct input parameters and injected credentials
+- **remote\_workbench** — A Python workbench for orchestrating multiple tools and handling large results
+
+**Best for:** Exploratory workflows, general-purpose agents, and scenarios where required tools aren't known upfront.
