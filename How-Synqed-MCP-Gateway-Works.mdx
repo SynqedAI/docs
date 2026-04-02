@@ -30,3 +30,28 @@ A Connection is an **actual authenticated account** created from an Auth Config.
 #### Prompts
 
 Prompts are **MCP primitives** attached to a Gateway Config that guide how the gateway orchestrates tool calls. They act as reusable workflow templates — instructing the gateway on how to analyze requests, sequence tool calls, and automate multi-step actions.
+
+### How a Request Flows
+
+When your AI agent makes a tool call through Synqed, here's what happens under the hood:
+
+```mermaid placement="bottom-right"
+sequenceDiagram
+    participant Agent as AI Agent
+    participant GW as Synqed Gateway
+    participant Auth as Auth Layer
+    participant Router as Routing Engine
+    participant MCP as MCP Server
+    participant API as SaaS API
+
+    Agent->>GW: Tool call via Gateway URL
+    GW->>Auth: Authenticate request (API key / token)
+    Auth->>Auth: Validate credentials & permissions
+    Auth->>Router: Request authorized
+    Router->>Router: Identify correct MCP server & tool
+    Router->>MCP: Forward call with injected credentials
+    MCP->>API: Execute API call (Gmail, Slack, HubSpot, etc.)
+    API-->>MCP: API response
+    MCP-->>GW: Structured result
+    GW-->>Agent: Clean response returned to agent
+```
