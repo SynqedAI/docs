@@ -71,23 +71,23 @@ The entire flow happens in milliseconds. Your agent treats the gateway as a sing
 ### Config & Instance Model
 
 ```mermaid placement="bottom-right"
-flowchart LR
+flowchart TD
     subgraph Blueprints
-        AC[Auth Config<br/>OAuth scopes, method, client ID]
-        GC[Gateway Config<br/>Servers, tools, prompts, settings]
+        AC[Auth Config]
+        GC[Gateway Config]
     end
 
     subgraph Live Resources
-        C1[Connection 1<br/>personal@gmail.com]
-        C2[Connection 2<br/>work@gmail.com]
-        GI1[Instance 1<br/>Gateway URL + API Key<br/>Production]
-        GI2[Instance 2<br/>Gateway URL + API Key<br/>Staging]
+        C1[Connection 1 - personal Gmail]
+        C2[Connection 2 - work Gmail]
+        GI1[Instance - Production]
+        GI2[Instance - Staging]
     end
 
-    AC --> C1
-    AC --> C2
-    GC --> GI1
-    GC --> GI2
+    AC -->|connects| C1
+    AC -->|connects| C2
+    GC -->|deploys| GI1
+    GC -->|deploys| GI2
 ```
 
 This separation gives you flexibility: update a config without disrupting live instances, spin up new instances for testing, and reuse auth configs across multiple gateways.
