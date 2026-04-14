@@ -44,9 +44,10 @@
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Auth Configs",
+            "icon": "binary-lock",
             "pages": [
-              "essentials/markdown",
+              "What-is-an-Auth-Config",
               "essentials/code",
               "essentials/images",
               "essentials/reusable-snippets"

@@ -1,0 +1,24 @@
+---
+title: "What is an Auth Config?"
+description: "Understand Auth Configs — the reusable blueprints that define how user accounts connect to each MCP server."
+icon: "lock-keyhole"
+---
+
+<Tip>
+  Before an AI agent can send an email, update a CRM record, or post to Slack, it needs a secure way to act on behalf of a real user's account. Synqed handles this through **Auth Configs** — reusable blueprints that define the permissions, scopes, and authentication method for each MCP server your agents use.
+</Tip>
+
+### **The core idea**
+
+Every MCP server in Synqed — Gmail, HubSpot, Slack, GitHub, Notion, and more — operates through a connected user account. That account is connected to Synqed based on an Auth Config: a saved blueprint that specifies how the OAuth handshake should happen, which scopes should be requested, and what permissions the connected account will grant.
+
+Think of it as a template. You define the blueprint once — for example, "Gmail with read \+ send scopes" — and then any number of users in your organisation can connect their Gmail accounts against that same blueprint. The resulting connected account is called a Connection, and every Connection traces back to the Auth Config that created it.
+
+#### **Auth Config vs. Connection**
+
+It's worth distinguishing the two concepts clearly:
+
+- An **Auth Config** is the blueprint. It specifies the MCP server, the authentication method (OAuth, API key, etc.), and the exact scopes the account will be granted.
+- A **Connection** is a live, authenticated account created from an Auth Config. It holds the actual OAuth tokens, the user identity, and the granted permissions — and it's what the gateway uses at runtime to execute tool calls.
+
+You create Auth Configs once per server per use case. You create Connections every time a user connects their account.
