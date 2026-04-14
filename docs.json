@@ -48,7 +48,7 @@
             "icon": "binary-lock",
             "pages": [
               "What-is-an-Auth-Config",
-              "essentials/code",
+              "Creating-and-Managing-Auth-Configs-and-Connections",
               "essentials/images",
               "essentials/reusable-snippets"
             ]
@@ -59,26 +59,6 @@
               "ai-tools/cursor",
               "ai-tools/claude-code",
               "ai-tools/windsurf"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
             ]
           }
         ]
