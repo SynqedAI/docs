@@ -36,9 +36,10 @@
             ]
           },
           {
-            "group": "Customization",
+            "group": "MCP Gateway",
+            "icon": "torii-gate",
             "pages": [
-              "essentials/settings",
+              "Dedicated-Gateway",
               "essentials/navigation"
             ]
           },
