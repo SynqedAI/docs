@@ -40,7 +40,7 @@
             "icon": "torii-gate",
             "pages": [
               "Dedicated-Gateway",
-              "essentials/navigation"
+              "ToolRouter-Gateway"
             ]
           },
           {
