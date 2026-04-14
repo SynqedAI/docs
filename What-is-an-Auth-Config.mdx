@@ -22,3 +22,55 @@ It's worth distinguishing the two concepts clearly:
 - A **Connection** is a live, authenticated account created from an Auth Config. It holds the actual OAuth tokens, the user identity, and the granted permissions — and it's what the gateway uses at runtime to execute tool calls.
 
 You create Auth Configs once per server per use case. You create Connections every time a user connects their account.
+
+#### **How Auth Configs fit into the bigger picture**
+
+A simple way to think about it:
+
+Auth Config (blueprint) → Connection 1 (Alice's Gmail), Connection 2 (Bob's Gmail), Connection 3 (Sales Team's shared Gmail)...
+
+When you attach an MCP server to a Gateway Config, you pick which Auth Config governs it. At runtime, the gateway uses the Connection tied to the requesting user to execute the tool call against the real SaaS API.
+
+#### **Why this separation matters**
+
+Keeping Auth Configs separate from Connections gives you three things:
+
+- **Reusability.** Define a server's auth setup once at the organization level and reuse it across every gateway you build — no duplicated scope configurations.
+- **Centralized governance.** IT teams can audit exactly which permissions have been granted to which services from one screen, instead of reviewing auth code across dozens of integrations.
+- **Controlled access.** Changing the blueprint (e.g., tightening scopes) cascades in a predictable way, and revoking or rotating credentials is a single operation.
+
+#### **Security implications**
+
+Auth Configs are security-sensitive — they determine the exact level of access your agents will have into a user's SaaS account. A few principles to keep in mind:
+
+- Least privilege. Request only the scopes your agent actually needs. A Gmail Auth Config for a "send-only" agent shouldn't include read scopes.
+- One config per intent. If you have a read-only analytics agent and a read-write support agent using Gmail, create two separate Auth Configs with different scope sets rather than reusing a maximal-scope config for both.
+- Secure token storage. Connections store OAuth tokens encrypted at rest in Synqed's SOC 2–compliant infrastructure. Tokens are never exposed to your agent code.
+- Permission-based access. Any team member can create an Auth Config based on the permissions their workflow requires — it's not limited to admins. This keeps builders unblocked while still giving the organisation a single place to audit everything that's been configured.
+
+#### Visualising the blueprint model
+
+```mermaid placement="bottom-right"
+flowchart TD
+    AC["Auth Config (Blueprint)<br/>e.g., Gmail — Read + Send scopes"]
+
+    AC --> C1["Connection<br/>Alice's Gmail"]
+    AC --> C2["Connection<br/>Bob's Gmail"]
+    AC --> C3["Connection<br/>Sales team's shared Gmail"]
+
+    C1 --> GW["Gateway Instance<br/>executes tool call using<br/>the requesting user's Connection"]
+    C2 --> GW
+    C3 --> GW
+
+    GW --> API["Gmail API"]
+
+    classDef blueprint fill:#FFE4CC,stroke:#FF4F00,stroke-width:2px,color:#001B41
+    classDef connection fill:#E0F0FF,stroke:#007FFF,stroke-width:1.5px,color:#001B41
+    classDef gateway fill:#001B41,stroke:#001B41,color:#FFFFFF
+    classDef api fill:#FFFFFF,stroke:#001B41,stroke-width:1.5px,color:#001B41
+
+    class AC blueprint
+    class C1,C2,C3 connection
+    class GW gateway
+    class API api
+```
