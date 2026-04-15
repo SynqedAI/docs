@@ -36,6 +36,10 @@ Name and describe your gateway (e.g., "General Agent — Prod"). Then select the
 
 That's it for tool selection. You don't pick individual tools — the ToolRouter handles correct tool exposure automatically at runtime based on the agent's query.
 
+<Frame>
+  ![Step 3 Toolrouter Gateway](/images/step-3-Toolrouter-gateway.png)
+</Frame>
+
 #### Stage 2: Technical Configuration (optional)
 
 Configure security, performance, and tool-safety settings: Setup Authentication (how clients authenticate when connecting to the gateway), Rate Limiting (max requests per second), Session timing (how long a session stays active — preset 8 hrs / 12 hrs / 24 hrs, corresponding to the VM session of the ToolRouter), and IP Whitelisting.
@@ -51,6 +55,10 @@ The Technical Configuration stage also includes tool-safety toggles — fine-gra
   Turning off destructive and open-world tools is a useful safeguard for early deployments.
 </Warning>
 
+<Frame>
+  ![Step 4b Toolrouter Gateway](/images/step-4b-Toolrouter-gateway.png)
+</Frame>
+
 #### Stage 3: Prompts (optional)
 
 Prompts guide the ToolRouter in orchestrating workflows across the servers you've connected. Each prompt has three fields: Prompt Name, Prompt Description, and Prompt Instruction — use the @ symbol to reference specific tools.
@@ -58,6 +66,10 @@ Prompts guide the ToolRouter in orchestrating workflows across the servers you'v
 For example, an "Agentic Workflow Designer" prompt might instruct the router to analyze a request, fetch data via @API\_Connector, and automate actions with @Automation\_Tool, logging into @Database.
 
 Click "Create MCP Gateway" to save your ToolRouter Config.
+
+<Frame>
+  ![Step 5 Toolrouter Gateway](/images/step-5-Toolrouter-gateway.png)
+</Frame>
 
 ### **Creating a Gateway Instance**
 
