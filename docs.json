@@ -61,7 +61,9 @@
           {
             "group": "Organisation",
             "icon": "building-lock",
-            "pages": []
+            "pages": [
+              "organisation-settings"
+            ]
           }
         ]
       }
