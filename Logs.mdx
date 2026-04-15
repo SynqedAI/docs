@@ -1,5 +1,62 @@
 ---
 title: "Logs"
-description: "Configure Cursor for your documentation workflow"
+description: "Inspect every tool call made against your MCP Gateways — with full request/response bodies, session context, and client details."
 icon: "tablet-screen"
 ---
+
+Once your gateways are live, the Logs section gives you complete visibility into every tool call flowing through them. Click any log entry to open its full trace — request, response, headers, and the gateway/instance/user context that produced it.
+
+#### **The Logs screen**
+
+Open Logs from the left sidebar. You'll see a reverse-chronological table of every tool call across your gateways, with these columns:
+
+- Session ID — the proxy session the call belongs to (e.g., proxy-20b3c2e6-e24b-4183-…)
+- Timestamp — when the call was made
+- Server Name / Entity Name — the MCP server logo (Hubspot, Notion, Linear, etc.) and the tool that was invoked (e.g., HUBSPOT\_LIST\_CONTACTS, get\_me, search)
+- Method — the MCP method used (e.g., tools/call)
+- Gateway Name — which Gateway Config the instance belongs to (e.g., "Daily work", "Notion")
+- Instance Name — the specific instance that handled the call
+- Client Name — the MCP client that connected (e.g., demo-agent, Claude Desktop, Cursor)
+
+#### **Filtering logs**
+
+The top bar gives you two main ways to narrow results:
+
+- Filters — a count badge shows how many filters are active; click to add filters on server, tool, gateway, instance, client, or session. Use Clear all to reset.
+- Date & Time — defaults to All time; switch to a specific window (last hour, last 24 hours, custom range) to focus on recent activity.
+
+Use the refresh icon on the right to pull the latest entries without reloading the page.
+
+#### **Opening a trace**
+
+Click any log row to open the Trace details panel on the right. Every trace starts with an Info block showing:
+
+- Session ID
+- Entity Name (the tool invoked)
+- Duration (e.g., 211.0 ms)
+- Timestamp
+- Method (e.g., tools/call)
+- Client Name
+- Client Version
+
+Below that, a set of collapsible sections gives you the full call context:
+
+- Request (JSON) — the exact input the MCP client sent
+- Response (JSON) — what the gateway returned to the client
+- Headers (JSON) — the MCP headers accompanying the call
+- MCP Gateway — which Gateway Config handled the call
+- Instance — which Instance served it
+- User Details — the connected user context
+
+This is the view you'll use to debug a broken tool call, confirm the right account was used, or audit exactly what an MCP client asked for and received.
+
+#### **Common use cases**
+
+- Debugging — when a client gets an unexpected result, open the trace and inspect the request/response JSON to pinpoint what went wrong.
+- Auditing — produce a full history of which clients invoked which tools on which gateways, with millisecond-level timestamps.
+- Performance tuning — scan durations across similar calls to identify slow tools or upstream APIs.
+- Security review — filter by client or server to confirm that activity matches expectations.
+
+#### **Retention**
+
+Logs and traces are retained according to your workspace's plan. For long-term storage or compliance archives, export trace data out of Synqed.
