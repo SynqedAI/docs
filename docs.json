@@ -52,11 +52,10 @@
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Observability",
+            "icon": "table-layout",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "Logs"
             ]
           }
         ]
