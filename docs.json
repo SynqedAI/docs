@@ -57,6 +57,11 @@
             "pages": [
               "Logs"
             ]
+          },
+          {
+            "group": "Organisation",
+            "icon": "building-lock",
+            "pages": []
           }
         ]
       }
