@@ -48,9 +48,7 @@
             "icon": "binary-lock",
             "pages": [
               "What-is-an-Auth-Config",
-              "Creating-and-Managing-Auth-Configs-and-Connections",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "Creating-and-Managing-Auth-Configs-and-Connections"
             ]
           },
           {
