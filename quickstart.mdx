@@ -9,16 +9,24 @@ This guide walks you through getting from zero to a fully operational MCP gatewa
 
 ### Step 1: Sign in to the platform
 
-Head to [app.synqed.ai](http://app.synqed.ai) and create your account. Synqed supports multiple sign-in methods to fit your enterprise's identity infrastructure:
+Head to [**mcp.synqed.ai**](https://mcp.synqed.ai/) and create your account. Synqed supports multiple sign-in methods to fit your enterprise's identity infrastructure:
 
 - **SSO** — Sign in with Google, Microsoft, or GitHub
 - **Email** — Use a traditional email-based login
 
-### Step 2: Create your organization
+<Frame>
+  ![Sign In](/images/Sign-in.jpg)
+</Frame>
 
-Once signed in, you'll land in your organization workspace. Every user gets a default organization automatically, but you can create additional organizations for different departments, projects, or clients.
+### Step 2: Create your organisation
 
-Use the **organization switcher** in the top-left corner and click **\+ Create New Organization**. Provide a name and optionally upload a logo. Each organization maintains its own set of MCP servers, team members, and permission policies — completely isolated from one another.
+Once signed in, you'll land in your organisation workspace. Every user gets a default organisation automatically, but you can create additional organisations for different departments, projects, or clients.
+
+Use the **organisation switcher** in the top-left corner and click **\+ Create New Organisation**. Provide a name and optionally upload a logo. Each organisation maintains its own set of MCP servers, team members, and permission policies — completely isolated from one another.
+
+<Frame>
+  ![Create New Organization](/images/create-new-organization.jpg)
+</Frame>
 
 ### Step 3: Invite your team
 
@@ -28,6 +36,10 @@ Navigate to the **Organization management** panel to manage your team:
 - Assign roles — **Admin** or **Member**
 
 Your team members will receive an email invite and can join your workspace immediately.
+
+<Frame>
+  ![Invite Team Member](/images/Invite-team-member.jpg)
+</Frame>
 
 ### Step 4: Create your first Gateway Config
 
@@ -58,6 +70,10 @@ The creation wizard walks you through three stages:
     **Select tools.** Once authenticated, the server's full tool list appears. Use the checkboxes to select exactly the tools your agent needs. For example, HubSpot exposes tools like _HUBSPOT\_ADD\_ASSET\_ASSOCIATION_, _HUBSPOT\_ARCHIVE_, _HUBSPOT\_ADD\_TOKEN\_TO\_EVENT\_TEMPLATE_, and many more.
 
     Repeat this process to add more servers — click **\+ Add MCP Server** again. All added servers appear in the left panel for easy navigation.
+
+    <Frame>
+      ![Step 1 Gateway Info And Setup](/images/Step-1---Gateway-info-and-setup.jpg)
+    </Frame>
   </Accordion>
 
   <Accordion title="Stage 2: Technical Configuration (optional)">
@@ -66,12 +82,20 @@ The creation wizard walks you through three stages:
     - **Setup Authentication** — How clients authenticate when connecting to the gateway
     - **Rate Limiting** — Maximum requests per second
     - **IP Whitelisting** — Restrict access to trusted networks
+
+    <Frame>
+      ![Step 2 Technical Configuration](/images/Step-2---Technical-Configuration.jpg)
+    </Frame>
   </Accordion>
 
   <Accordion title="Stage 3: Prompts (optional)">
     Prompts are MCP primitives that guide how the gateway orchestrates tool calls and workflows. Each prompt has a **name**, **description**, and **instruction**. Use the @ symbol within instructions to reference specific tools. Prompts act as reusable workflow templates — instructing the gateway on how to analyze requests, fetch data, and automate multi-step actions.
 
     Click **\+ Create MCP Gateway** to save your gateway config.
+
+    <Frame>
+      ![Step 3 Prompts](/images/Step-3---Prompts.jpg)
+    </Frame>
   </Accordion>
 </AccordionGroup>
 
@@ -81,10 +105,14 @@ Your Gateway Config is now a saved blueprint. To make it operational, create an 
 
 Point your agent at the Gateway URL, and it's ready to take action across all your connected SaaS tools, securely and at scale.
 
+<Frame>
+  ![Create Gateway Instance](/images/Create-gateway-instance.jpg)
+</Frame>
+
 ## What's next?
 
-- Learn [How Synqed MCP Gateway Works](/getting-started/how-it-works) to understand the architecture
-- Explore the [ToolRouter](/gateway-creation/toolrouter) for complex workflows where required tools aren't known upfront
+- Learn [How Synqed MCP Gateway Works](/How-Synqed-MCP-Gateway-Works) to understand the architecture
+- Explore the [ToolRouter](ToolRouter-Gateway.mdx) for complex workflows where required tools aren't known upfront
 - Manage [Auth Configs](/authentication/auth-configs) centrally for your organization
 - Connect user [Accounts](/authentication/connections) to your auth configs
 
@@ -94,7 +122,7 @@ Point your agent at the Gateway URL, and it's ready to take action across all yo
     </Card>
   </Column>
   <Column>
-    <Card title="Toolrouter" icon="sparkles">
+    <Card title="Toolrouter" icon="sparkles" href="Toolrouter-Gateway">
     </Card>
   </Column>
 </Columns>
