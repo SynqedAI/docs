@@ -14,8 +14,8 @@ This is ideal for production workflows where you know exactly which tools your a
 
 - You have a well-defined workflow with known tool requirements
 - You want precise control over which tools your agent can access
-- You're building a production agent that needs deterministic behavior
-- You want to minimize context window usage by exposing only relevant tools
+- You're building a production agent that needs deterministic behaviour
+- You want to minimise context window usage by exposing only relevant tools
 
 ### Creating a Dedicated Gateway Config
 
@@ -23,53 +23,57 @@ From the **MCP Gateways** dashboard, click **\+ Create MCP Gateway** and select 
 
 The creation wizard has three stages:
 
-#### Stage 1: Gateway Info & Setup
+<AccordionGroup>
+  <Accordion title="Stage 1: Gateway Info & Setup">
+    This is where you define the core of your gateway.
 
-This is where you define the core of your gateway.
+    **Name and describe your gateway.** Give it a meaningful name (e.g., "Sales Agent Gateway" or "Support Bot") and an optional description so your team can easily identify it.
 
-**Name and describe your gateway.** Give it a meaningful name (e.g., "Sales Agent Gateway" or "Support Bot") and an optional description so your team can easily identify it.
+    **Add MCP servers and select tools:**
 
-**Add MCP servers and select tools:**
+    1. Click **\+ Add MCP Server** to open the server selection panel
+    2. Browse or search for the server you need (e.g., HubSpot, Gmail, Slack). Each server displays its supported authentication methods — OAuth2, API Key, etc.
+    3. Select an **Auth Config** for that server. You can pick an existing one or click **\+ Create Auth Config** to create a new one inline (see [Auth Configs](https://docs.synqed.ai/authentication/auth-configs) for details)
+    4. Once authenticated, the server's full tool list appears with checkboxes. Select only the tools your agent needs. For example, with HubSpot you might select `HUBSPOT_CREATE_CONTACT`and `HUBSPOT_UPDATE_DEAL`while leaving everything else unchecked.
+    5. Click **\+ Add MCP Server** again to add more servers to the same gateway
 
-1. Click **\+ Add MCP Server** to open the server selection panel
-2. Browse or search for the server you need (e.g., HubSpot, Gmail, Slack). Each server displays its supported authentication methods — OAuth2, API Key, etc.
-3. Select an **Auth Config** for that server. You can pick an existing one or click **\+ Create Auth Config** to create a new one inline (see [Auth Configs](/authentication/auth-configs) for details)
-4. Once authenticated, the server's full tool list appears with checkboxes. Select only the tools your agent needs. For example, with HubSpot you might select `HUBSPOT_CREATE_CONTACT`and `HUBSPOT_UPDATE_DEAL`while leaving everything else unchecked.
-5. Click **\+ Add MCP Server** again to add more servers to the same gateway
+    All added servers appear in the left panel. Click on any server to review or modify its selected tools.
 
-All added servers appear in the left panel. Click on any server to review or modify its selected tools.
+    <Frame>
+      ![Step 1 Gateway Info And Setup](/images/Step-1---Gateway-info-and-setup.jpg)
+    </Frame>
+  </Accordion>
 
-<Frame>
-  ![Step 9 Gateway Creation](/images/step-9-gateway-creation.png)
-</Frame>
+  <Accordion title="Stage 2: Technical Configuration (optional)">
+    Configure security and performance settings:
 
-#### Stage 2: Technical Configuration (optional)
+    - **Setup Authentication** — Define how clients authenticate when connecting to this gateway. Options include No Auth, API Key, and others depending on your security requirements.
+    - **Rate Limiting** — Set the maximum number of requests allowed per second to prevent abuse and control costs.
+    - **IP Whitelisting** — Restrict gateway access to specific trusted IP addresses. Add one or more IPs to ensure only authorised networks can reach your gateway.
 
-Configure security and performance settings:
+    <Frame>
+      ![Step 10 Gateway Creation](/images/step-10-gateway-creation.png)
+    </Frame>
+  </Accordion>
 
-- **Setup Authentication** — Define how clients authenticate when connecting to this gateway. Options include No Auth, API Key, and others depending on your security requirements.
-- **Rate Limiting** — Set the maximum number of requests allowed per second to prevent abuse and control costs.
-- **IP Whitelisting** — Restrict gateway access to specific trusted IP addresses. Add one or more IPs to ensure only authorised networks can reach your gateway.
+  <Accordion title="Stage 3: Prompts (optional)">
+    Prompts guide how the gateway orchestrates tool calls and workflows. Each prompt has three components:
 
-<Frame>
-  ![Step 10 Gateway Creation](/images/step-10-gateway-creation.png)
-</Frame>
+    - **Prompt Name** — A short identifier (e.g., "Sales Workflow Orchestrator")
 
-#### Stage 3: Prompts (optional)
+    - **Prompt Description** — Explain when and why this prompt should be used
 
-Prompts guide how the gateway orchestrates tool calls and workflows. Each prompt has three components:
+    - **Prompt Instruction** — Describe what the gateway should do. Use **@** to reference specific tools within the instruction
 
-- **Prompt Name** — A short identifier (e.g., "Sales Workflow Orchestrator")
-- **Prompt Description** — Explain when and why this prompt should be used
-- **Prompt Instruction** — Describe what the gateway should do. Use **@** to reference specific tools within the instruction
+    Click **\+** to add multiple prompts. These act as reusable workflow templates that your agents can invoke.
 
-Click **\+** to add multiple prompts. These act as reusable workflow templates that your agents can invoke.
+    When everything is set, click **Create MCP Gateway** to save your gateway config.
 
-When everything is set, click **Create MCP Gateway** to save your gateway config.
-
-<Frame>
-  ![Step 11 Gateway Creation](/images/step-11-gateway-creation.png)
-</Frame>
+    <Frame>
+      ![Step 11 Gateway Creation](/images/step-11-gateway-creation.png)
+    </Frame>
+  </Accordion>
+</AccordionGroup>
 
 ### Creating a Gateway Instance
 
