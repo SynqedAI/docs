@@ -12,11 +12,15 @@ Navigate to the Auth Configs section from the left sidebar of your workspace. If
 
 ### **Creating an Auth Config**
 
-#### Step 1 — Select the server. 
+#### Step 1 — Select the server.
 
 Pick the MCP server you want to configure — Gmail, HubSpot, Slack, GitHub, Notion, and so on. The server list is searchable, and each row shows the authentication method(s) it supports (OAuth2, API Key, etc.).
 
-#### Step 2 — Configure the Auth Config. 
+<Frame>
+  ![Select Server On Auth Config Creation](/images/select-server-on-auth-config-creation.jpg)
+</Frame>
+
+#### Step 2 — Configure the Auth Config.
 
 Once you select a server (e.g., Gmail), a configuration panel opens with the server's logo at the top. Fill in:
 
@@ -25,6 +29,10 @@ Once you select a server (e.g., Gmail), a configuration panel opens with the ser
 - Manage Scopes — for OAuth-based methods, add the scopes you want users to grant (e.g., `https://www.googleapis.com/auth/gmail.send`). Add one at a time and remove any with the delete icon. A "What do these scopes mean?" link gives scope-level context.
 
 Click "Create \[Server\] Auth Config" at the bottom to save. You'll get an "Auth Config has been created" confirmation and land on the detail page.
+
+<Frame>
+  ![Configure The Auth Config](/images/Configure-the-auth-config.jpg)
+</Frame>
 
 ### **The Auth Config detail page**
 
@@ -48,6 +56,10 @@ A Connection is an authenticated user account bound to a specific Auth Config. F
 4. Complete the OAuth handshake (or provide an API key, depending on the auth method). The user grants exactly the scopes defined in the Auth Config — nothing more.
 5. The new Connection appears in the Connected Accounts list with its name, account ID, status, and creation date.
 
+<Frame>
+  ![Connect A New Account](/images/Connect-a-new-account.jpg)
+</Frame>
+
 You can also click "Copy Auth Config ID" from the empty-state screen and use it in your own onboarding flow — so end users connect their accounts directly from inside your product rather than in the Synqed dashboard.
 
 ### **Managing Connections**
@@ -58,6 +70,10 @@ From the Connected Accounts list you can:
 - Filter by Status (active, expired, revoked)
 - Sort by creation date (latest to earliest, or the reverse)
 - Open any Connection to view its details, re-authenticate, and revoke it when access is no longer needed
+
+<Frame>
+  ![Connected Accounts](/images/Connected-accounts.jpg)
+</Frame>
 
 Revoking a Connection invalidates the stored tokens immediately — any gateway running a tool call against that Connection will fail securely until the user re-connects.
 
